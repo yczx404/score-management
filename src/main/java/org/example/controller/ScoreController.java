@@ -1,16 +1,20 @@
 package org.example.controller;
 
-import org.example.entity.Student;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.example.service.ScoreService;
+import org.example.vo.Result;
+import org.example.vo.StatisticResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class ScoreController {
 
-    @RequestMapping("/")
-    public List<Student> home() {
-        return List.of(new Student("1", 98, 1, 1));
+    @Autowired
+    private ScoreService service;
+
+    @PostMapping("/statistic")
+    public Result<StatisticResult> statistic(int cid) {
+        return service.getMathSummaryResult(cid);
     }
 }
